@@ -10,7 +10,7 @@ export default {
   theme: {
   	extend: {
        fontFamily: {
-        sans: ['var(--font-dancing-script)', 'sans-serif'], // Add Dancing Script as primary sans font
+        sans: ['var(--font-inter)', 'sans-serif'], // Use Inter font variable
       },
   		colors: {
   			background: 'hsl(var(--background))',

@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 body {
-  font-family: var(--font-dancing-script), /* Use Dancing Script font variable */
+  font-family: var(--font-inter), sans-serif; /* Use Inter font variable */
 }
 
 @layer base {
