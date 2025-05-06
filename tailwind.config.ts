@@ -1,3 +1,4 @@
+
 import type { Config } from "tailwindcss";
 
 export default {
@@ -10,7 +11,7 @@ export default {
   theme: {
   	extend: {
        fontFamily: {
-        sans: ['var(--font-dancing-script)', 'sans-serif'], // Add Dancing Script as primary sans font
+        sans: ['var(--font-roboto)', 'sans-serif'], // Change to Roboto font variable
       },
   		colors: {
   			background: 'hsl(var(--background))',
