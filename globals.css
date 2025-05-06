@@ -5,7 +5,7 @@
 /* Remove direct font-family application from body, rely on Tailwind's font-sans utility which is now Roboto */
 /*
 body {
-  font-family: var(--font-dancing-script), sans-serif; 
+  font-family: var(--font-dancing-script), ; 
 }
 */
 
