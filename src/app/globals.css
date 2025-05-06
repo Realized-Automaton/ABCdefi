@@ -2,12 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Remove direct font-family application from body, rely on Tailwind's font-sans utility which is now Roboto */
-/*
 body {
-  font-family: var(--font-dancing-script), sans-serif; 
+  font-family: var(--font-dancing-script), /* Use Dancing Script font variable */
 }
-*/
 
 @layer base {
   :root {
@@ -91,3 +88,4 @@ body {
     @apply bg-background text-foreground;
   }
 }
+
