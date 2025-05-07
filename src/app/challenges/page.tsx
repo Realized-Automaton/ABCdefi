@@ -14,7 +14,7 @@ import { ScamAlertModal } from '@/components/scam-alert-modal'; // Import the ne
 import { useToast } from '@/hooks/use-toast'; // Import useToast
 import { useUser } from '@/context/user-context'; // Import useUser
 import { TelegramScamChatChallenge } from '@/components/telegram-scam-chat-challenge'; // Import the new challenge component
-import { DeFiDegenGame } from '@/components/defi-degen-game'; // Import the new DeFi Degen game component
+// Removed DeFiDegenGame import
 
 export default function ChallengesPage() {
   const [isScamModalOpen, setIsScamModalOpen] = React.useState(false);
@@ -122,8 +122,8 @@ export default function ChallengesPage() {
             {/* Telegram Scam Chat Challenge Card */}
              <TelegramScamChatChallenge className="lg:col-span-2" questId={7} xpReward={100} /> {/* Spans full width */}
 
-             {/* DeFi Degen Game Card */}
-             <DeFiDegenGame className="lg:col-span-2" questId={8} xpReward={250} /> {/* Spans full width */}
+             {/* DeFi Degen Game Card - REMOVED FROM HERE */}
+             {/* <DeFiDegenGame className="lg:col-span-2" questId={8} xpReward={250} /> */}
 
 
             {/* Add placeholder for potential future challenges if needed */}
