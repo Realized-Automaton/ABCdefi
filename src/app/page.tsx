@@ -2,7 +2,7 @@
 import Image from 'next/image';
 import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarInset, SidebarTrigger } from '@/components/ui/sidebar';
 import { Button } from '@/components/ui/button';
-import { BookOpen, Trophy, Gamepad2, Check, Layers, ShieldCheck, Settings, BarChart3, Target, ScrollText, Lightbulb, AlertTriangle } from 'lucide-react';
+import { Check, Layers, ShieldCheck, Settings, BarChart3, Target, ScrollText, AlertTriangle, Gamepad2, BookOpen, TrendingUp } from 'lucide-react'; // Added Gamepad2, BookOpen, TrendingUp
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
 import { Badge } from '@/components/ui/badge';
@@ -55,9 +55,9 @@ export default function Home() {
         <header className="sticky top-0 z-10 flex h-[57px] items-center gap-2 border-b bg-background px-4">
           <SidebarTrigger className="md:hidden" />
           <div className="flex-1 flex items-center justify-center gap-1 sm:gap-2">
-            <Lightbulb className="h-5 w-5 text-primary hidden sm:inline-block" />
-            <div className="hidden md:block text-base sm:text-lg md:text-xl font-semibold text-foreground text-center font-sans flex-shrink min-w-0">
-              Increase your crypto IQ with challenges and quests
+            <TrendingUp className="h-5 w-5 text-primary hidden sm:inline-block" />
+            <div className="hidden md:block text-base sm:text-lg md:text-xl font-semibold text-primary text-center font-sans flex-shrink min-w-0 bg-[#faf0dc] px-6 py-1 rounded-full shadow-md">
+              Challenges and quests that increase your crypto IQ
             </div>
             <Gamepad2 className="h-5 w-5 text-primary hidden sm:inline-block" />
           </div>
@@ -73,15 +73,17 @@ export default function Home() {
             <CryptoInfographicCard className="col-span-1 h-full" />
             <Leaderboard className="col-span-1 h-full" />
 
-            <DeFiDegenGame className="md:col-span-2 lg:col-span-3 h-full" questId={8} xpReward={250} />
+            <DeFiDegenGame className="md:col-span-2 lg:col-span-3 h-full" questId={8} xpReward={250} /> {/* Ensure lg:col-span-3 is applied */}
+
 
             <FaucetCard className="col-span-1 h-full" questId={4} xpReward={50} />
             <SwapCard className="col-span-1 h-full" questId={2} xpReward={75} />
             <LpCard className="col-span-1 h-full" questId={3} xpReward={100} />
 
-            <RugPullCard className="md:col-span-2 lg:col-span-3 h-full" questId={6} xpReward={150} />
+            <RugPullCard className="md:col-span-2 lg:col-span-3 h-full" questId={6} xpReward={150} /> {/* Ensure lg:col-span-3 is applied */}
 
-            <Card className="md:col-span-2 lg:col-span-3 h-full">
+
+            <Card className="md:col-span-2 lg:col-span-3 h-full"> {/* Ensure lg:col-span-3 is applied */}
               <CardHeader>
                 <CardTitle>Completed Quests</CardTitle>
               </CardHeader>
