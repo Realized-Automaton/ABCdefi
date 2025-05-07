@@ -82,15 +82,15 @@ const INITIAL_STATE: GameState = {
 const MOCK_EVENTS: Omit<GameEvent, 'actionOptions'>[] = [
     { id: 1, type: 'rumor', title: 'Rumor Mill: New Altcoin Gaining Traction', description: 'Whispers on CryptoX suggest a new altcoin could be the next big thing. Dev wallet holds 50% of supply.', potentialGain: '5x-10x?', isHighRisk: true, subtleClue: 'High dev wallet concentration often signals centralization risk or potential dump.' },
     { id: 2, type: 'tweet', title: 'Influencer Tweet: Promising Project Alert!', description: 'A popular crypto influencer is hyping a new project with ambitious goals. DYOR!', potentialGain: '100x (maybe)', isHighRisk: true, subtleClue: 'Influencer hype without substance often leads to pump-and-dumps. Verify the claims.' },
-    { id: 3, type: 'marketShift', title: 'Market Jitters', description: 'Uncertainty looms as regulatory discussions intensify. Market sentiment showing signs of turning bearish.', sentimentEffect: 'bearish', subtleClue: 'Investing during market uncertainty or "jitters" is often risky as sentiment can sour quickly.' },
+    { id: 3, type: 'marketShift', title: 'Market Jitters', description: 'Uncertainty looms as regulatory discussions intensify. Market sentiment showing signs of turning bearish.', sentimentEffect: 'bearish', subtleClue: 'Investing during market uncertainty or "jitters" is often risky as sentiment can sour quickly. Bear markets are born in euphoria and bull markets in depression.' },
     { id: 4, type: 'scamOpportunity', title: 'Exclusive Presale Invitation', description: 'An opportunity to invest in a promising new token before it hits the market. Limited spots available! Contract unverified.', isHighRisk: true, subtleClue: 'Unverified contracts are extremely risky and a common sign of scams.' },
     { id: 5, type: 'rumor', title: 'Tech Breakthrough Announced', description: 'Reports of a significant technological advancement in a lesser-known project emerge. Seems legit?', token: 'GARBAGE', isHighRisk: false, subtleClue: 'Genuine tech advancements can drive value, assuming the report is accurate.' },
-    { id: 6, type: 'marketShift', title: 'Market Euphoria!', description: 'Green candles everywhere! A wave of optimism sweeps through the crypto space.', sentimentEffect: 'euphoric', subtleClue: 'Extreme euphoria often signals a market top. Buying during peak hype is very risky (Exit Liquidity).' },
+    { id: 6, type: 'marketShift', title: 'Market Euphoria!', description: 'Green candles everywhere! A wave of optimism sweeps through the crypto space.', sentimentEffect: 'euphoric', subtleClue: 'Extreme euphoria often signals a market top. Buying during peak hype is very risky (Exit Liquidity). Bear markets are born in euphoria.' },
     { id: 7, type: 'news', title: 'Major Exchange Lists $SAFE', description: '$SAFE token has just been listed on a top-tier exchange! Price jumped 30% in the last hour.', token: 'SAFE', delayedEffect: true, isHighRisk: true, subtleClue: 'Investing *after* a major listing pump ("sell the news") can be dangerous as early investors take profits.' },
     { id: 8, type: 'tweet', title: 'Elon Mentions Altcoin Project (Yesterday!)', description: 'Elon Musk tweeted about an altcoin yesterday, causing a massive pump. Is it too late to get in?', potentialGain: '???', isHighRisk: true, delayedEffect: true, subtleClue: 'Chasing pumps based on old news (even celebrity tweets) is often a losing strategy.' },
     { id: 9, type: 'news', title: 'Project Audit Results Released', description: 'Project CLOWNCHAIN passed its security audit! Report looks clean.', token: 'CLOWN', isHighRisk: false, delayedEffect: false, subtleClue: 'A successful audit from a reputable firm reduces security risks, but doesn\'t guarantee price appreciation.' },
     { id: 10, type: 'scamOpportunity', title: 'Yield Farm Offering 1000% APY', description: 'New farm just launched offering insane returns on $XYZ staking. Deposit requires approving unlimited token spend.', potentialGain: '1000% APY!', isHighRisk: true, subtleClue: 'Unsustainably high APYs and requests for unlimited token approvals are major red flags for scams.' },
-    { id: 11, type: 'marketShift', title: 'Massive Liquidation Cascade', description: 'Panic selling triggers a cascade of liquidations across major platforms. Sentiment is rock bottom.', sentimentEffect: 'panic', subtleClue: 'Panic selling can present buying opportunities ("buy the dip"), but timing is critical and risky. Ensure the project fundamentals remain sound.' },
+    { id: 11, type: 'marketShift', title: 'Massive Liquidation Cascade', description: 'Panic selling triggers a cascade of liquidations across major platforms. Sentiment is rock bottom.', sentimentEffect: 'panic', subtleClue: 'Panic selling can present buying opportunities ("buy the dip" or "buy when there is blood in the streets"), but timing is critical and risky. Ensure the project fundamentals remain sound. Bull markets are often born in depression like this.' },
     { id: 12, type: 'nftOpportunity', title: 'Hyped NFT Mint LIVE!', description: 'A new PFP project with huge Discord buzz is minting now! Floor could 10x, or go to zero.', potentialGain: '10x?', isHighRisk: true, delayedEffect: true, subtleClue: 'NFT mints are highly volatile. Success often depends on timing, overall market sentiment, and team execution, not just hype.' },
     { id: 13, type: 'nftOpportunity', title: 'NFT Floor Price Speculation', description: 'Talk of a major influencer sweeping the floor of the "Bored YC Kittens" collection. Maybe pump incoming?', isHighRisk: true, delayedEffect: true, subtleClue: 'Speculating on NFT floor prices based on rumors is extremely risky and akin to gambling.' },
     { id: 14, type: 'nftOpportunity', title: '"Free" NFT Claim Available', description: 'Claim your free commemorative NFT by connecting your wallet and signing the transaction. Looks legit?', isHighRisk: true, subtleClue: '"Free" mints requiring transaction signing (especially approvals) are often wallet drainer scams.' },
@@ -154,7 +154,7 @@ interface PortfolioHistoryPoint {
 const chartConfig = {
     value: {
         label: "Portfolio Value (DAI)",
-        color: "hsl(var(--primary))", // Use primary color from theme
+        color: "hsl(var(--primary-foreground))",
     },
 } satisfies ChartConfig;
 
@@ -507,227 +507,226 @@ export function DeFiDegenGame({ className, questId, xpReward }: DeFiDegenGamePro
      };
 
     return (
-         <Card className={cn("flex flex-col min-h-[600px]", className)}> {/* Increased min-height */}
-            <CardHeader>
-                 <div className="flex justify-between items-start">
-                    <div>
-                        <CardTitle className="flex items-center gap-2 text-lg md:text-xl"> {/* Increase title size */}
-                            <TrendingUp className="text-accent" /> DeFi Degen: Survive the Cycle
-                        </CardTitle>
-                        <CardDescription className="text-sm md:text-base"> {/* Increase description size */}
-                            🧠💸 &quot;Think you&apos;re built different? Prove it.&quot; | Quest ID: {questId}
-                        </CardDescription>
-                         {isFinished && (
-                            <Badge variant={isCompleted && earnedXp > 0 ? "success" : "default"} className="w-fit mt-1 text-sm px-2 py-1"> {/* Increase badge size */}
-                                {isCompleted && earnedXp > 0 ? `Completed (+${earnedXp} XP)` : "Finished"}
-                           </Badge>
-                         )}
+         <Card className={cn(
+            "flex flex-col min-h-[600px] relative overflow-hidden",
+            "bg-gradient-to-br from-primary/[.40] to-accent/[.40]", // Gradient background with opacity
+            "text-primary-foreground",
+             className
+         )}>
+            <div className="relative z-10 flex flex-col flex-1">
+                <CardHeader> {/* Removed bg-primary to inherit gradient */}
+                    <div className="flex justify-between items-start">
+                        <div className="flex-1 text-center">
+                            <CardTitle className="flex items-center justify-center gap-2 text-lg md:text-xl text-primary-foreground">
+                                <TrendingUp className="text-accent" /> DeFi Degen: Survive the Cycle
+                            </CardTitle>
+                            <CardDescription className="text-sm md:text-base text-primary-foreground/80">
+                                🧠💸 &quot;Think you&apos;re built different? Prove it.&quot; | Quest ID: {questId}
+                            </CardDescription>
+                        </div>
+                        <div className="flex items-center gap-2">
+                            <Button variant="ghost" size="icon" onClick={handleRestartGame} className="h-8 w-8 text-primary-foreground/80 hover:text-primary-foreground hover:bg-primary-foreground/10">
+                                <RefreshCw size={16} />
+                                <span className="sr-only">Restart Game</span>
+                            </Button>
+                            <Popover>
+                                <PopoverTrigger asChild>
+                                    <Button variant="ghost" size="icon" className="h-8 w-8 text-primary-foreground/80 hover:text-primary-foreground hover:bg-primary-foreground/10">
+                                        <HelpCircle size={16} />
+                                        <span className="sr-only">Game Info</span>
+                                    </Button>
+                                </PopoverTrigger>
+                                <PopoverContent side="top" align="end" className="w-80 text-base bg-popover text-popover-foreground">
+                                    <p>Start with ${INITIAL_BALANCE} DAI and survive {MAX_DAYS} days. React to market events, invest in projects, and avoid scams. Your balance changes daily. Use the slider to decide how much % of your balance to risk on 'Invest' actions. Reach the end without getting rekt!</p>
+                                </PopoverContent>
+                            </Popover>
+                        </div>
                     </div>
-                     <div className="flex items-center gap-2">
-                         <Button variant="ghost" size="icon" onClick={handleRestartGame} className="h-8 w-8 text-muted-foreground hover:text-foreground">
-                             <RefreshCw size={16} />
-                             <span className="sr-only">Restart Game</span>
-                         </Button>
-                         <Popover>
-                            <PopoverTrigger asChild>
-                                 <Button variant="ghost" size="icon" className="h-8 w-8 text-muted-foreground hover:text-foreground">
-                                     <HelpCircle size={16} />
-                                     <span className="sr-only">Game Info</span>
-                                 </Button>
-                             </PopoverTrigger>
-                             <PopoverContent side="top" align="end" className="w-80 text-base"> {/* Increase Popover text size */}
-                                 <p>Start with ${INITIAL_BALANCE} DAI and survive {MAX_DAYS} days. React to market events, invest in projects, and avoid scams. Your balance changes daily. Use the slider to decide how much % of your balance to risk on 'Invest' actions. Reach the end without getting rekt!</p>
-                             </PopoverContent>
-                        </Popover>
-                     </div>
-                </div>
-            </CardHeader>
-            <CardContent className="flex-1 flex flex-col justify-between space-y-4">
+                     {isFinished && (
+                         <Badge variant={isCompleted && earnedXp > 0 ? "success" : "default"} className="w-fit mt-1 text-sm px-2 py-1 bg-background/20 text-primary-foreground mx-auto">
+                             {isCompleted && earnedXp > 0 ? `Completed (+${earnedXp} XP)` : "Finished"}
+                         </Badge>
+                     )}
+                </CardHeader>
+                <CardContent className="flex-1 flex flex-col justify-between space-y-4">
 
-                {!isPlaying && !isFinished && (
-                     <div className="flex-1 flex flex-col items-center justify-center p-4 space-y-4">
-                          <LineChartIcon size={48} className="text-primary"/>
-                         <p className="text-base text-muted-foreground text-center"> {/* Increased text size */}
-                             Start with ${INITIAL_BALANCE} DAI and survive {MAX_DAYS} days of market madness. Use the chart to track your performance. Can you make it?
-                         </p>
-                         <Button onClick={handleStartGame} size="lg" className="gap-2">
-                             <Play size={18}/> Start the Cycle
-                         </Button>
-                     </div>
-                )}
+                    {!isPlaying && !isFinished && (
+                        <div className="flex-1 flex flex-col items-center justify-center p-4 space-y-4">
+                            <LineChartIcon size={48} className="text-primary-foreground/80"/>
+                            <p className="text-base text-primary-foreground/80 text-center">
+                                Start with ${INITIAL_BALANCE} DAI and survive {MAX_DAYS} days of market madness. Use the chart to track your performance. Can you make it?
+                            </p>
+                            <Button onClick={handleStartGame} size="lg" className="gap-2 bg-accent hover:bg-accent/90 text-accent-foreground">
+                                <Play size={18}/> Start the Cycle
+                            </Button>
+                        </div>
+                    )}
 
-                 {isPlaying && !isFinished && (
-                    <div className="flex-1 flex flex-col space-y-4">
-                         {/* Chart Display */}
-                          <div className="h-[200px] border p-2 rounded-md bg-muted/30">
-                             <ChartContainer config={chartConfig} className="h-full w-full">
-                                <LineChart
-                                    accessibilityLayer
-                                    data={gameState.history}
-                                    margin={{ top: 5, right: 10, left: -20, bottom: 0 }} // Adjusted left margin
-                                 >
-                                     <CartesianGrid vertical={false} strokeDasharray="3 3" stroke="hsl(var(--muted-foreground)/0.3)" />
-                                     <XAxis
-                                         dataKey="day"
-                                         tickLine={false}
-                                         axisLine={false}
-                                         tickMargin={8}
-                                         tickFormatter={(value) => `${value}`}
-                                         interval="preserveStartEnd"
-                                         domain={[0, 'dataMax']}
-                                         type="number"
-                                         label={{ value: 'Day', position: 'insideBottomRight', offset: -5 }}
-                                         tick={{ fontSize: '0.8rem' }} // Increase tick font size
-                                     />
-                                     <YAxis
-                                         tickLine={false}
-                                         axisLine={false}
-                                         tickMargin={8}
-                                         tickFormatter={(value) => `$${value.toLocaleString(undefined, { maximumFractionDigits: 0 })}`} // Removed DAI suffix for cleaner axis
-                                         domain={['auto', 'auto']} // Auto domain based on data
-                                         width={80} // Give Y-axis more space for labels
-                                         tick={{ fontSize: '0.8rem' }} // Increase tick font size
-                                     />
-                                     <RechartsTooltip
-                                        cursor={false}
-                                        content={<ChartTooltipContent indicator="dot" hideLabel />}
-                                      />
-                                     <Line
-                                         dataKey="value"
-                                         type="monotone"
-                                         stroke="var(--color-value)"
-                                         strokeWidth={2}
-                                         dot={false}
-                                     />
-                                 </LineChart>
-                             </ChartContainer>
-                         </div>
-
-
-                         {/* Game Status Bar */}
-                         <div className="flex justify-between items-center text-base border p-2 rounded-md"> {/* Increased text size */}
-                             <span>Day: {gameState.day} / {gameState.maxDays}</span>
-                             <span>Balance: <span className={cn(
-                                "font-semibold",
-                                gameState.balance >= INITIAL_BALANCE ? "text-green-500" : "text-red-500" // Conditional text color
-                             )}>${gameState.balance.toFixed(2)} DAI</span></span>
-                             <span className="capitalize">Market Sentiment: <span className={cn( // Changed "Market:" to "Market Sentiment:"
-                                 gameState.marketSentiment === 'euphoric' && 'text-green-500',
-                                 gameState.marketSentiment === 'bullish' && 'text-green-400',
-                                 gameState.marketSentiment === 'neutral' && 'text-muted-foreground',
-                                 gameState.marketSentiment === 'bearish' && 'text-red-400',
-                                 gameState.marketSentiment === 'panic' && 'text-red-600 font-bold',
-                             )}>{gameState.marketSentiment}</span></span>
-                         </div>
-
-                         {/* Investment Slider - Only show if 'Invest' action is possible */}
-                         {gameState.currentEvent?.actionOptions?.includes('Invest') && (
-                            <div className="space-y-2">
-                                <Label htmlFor="investment-slider" className="text-base">Investment % (of Balance): {investmentPercentage}%</Label> {/* Increased label size */}
-                                <Slider
-                                    id="investment-slider"
-                                    min={0}
-                                    max={100}
-                                    step={5}
-                                    value={[investmentPercentage]}
-                                    onValueChange={(value) => setInvestmentPercentage(value[0])}
-                                />
+                    {isPlaying && !isFinished && (
+                        <div className="flex-1 flex flex-col space-y-4">
+                            <div className="h-[200px] border border-primary-foreground/20 p-2 rounded-md bg-primary/50"> {/* Changed background to primary/50 */}
+                                <ChartContainer config={chartConfig} className="h-full w-full">
+                                    <LineChart
+                                        accessibilityLayer
+                                        data={gameState.history}
+                                        margin={{ top: 5, right: 10, left: -20, bottom: 0 }}
+                                    >
+                                        <CartesianGrid vertical={false} strokeDasharray="3 3" stroke="hsl(var(--primary-foreground)/0.2)" />
+                                        <XAxis
+                                            dataKey="day"
+                                            tickLine={false}
+                                            axisLine={false}
+                                            tickMargin={8}
+                                            tickFormatter={(value) => `${value}`}
+                                            interval="preserveStartEnd"
+                                            domain={[0, 'dataMax']}
+                                            type="number"
+                                            label={{ value: 'Day', position: 'insideBottomRight', offset: -5, fill: 'hsl(var(--primary-foreground)/0.8)' }}
+                                            tick={{ fontSize: '0.8rem', fill: 'hsl(var(--primary-foreground)/0.7)' }}
+                                        />
+                                        <YAxis
+                                            tickLine={false}
+                                            axisLine={false}
+                                            tickMargin={8}
+                                            tickFormatter={(value) => `$${value.toLocaleString(undefined, { maximumFractionDigits: 0 })}`}
+                                            domain={['auto', 'auto']}
+                                            width={80}
+                                            tick={{ fontSize: '0.8rem', fill: 'hsl(var(--primary-foreground)/0.7)' }}
+                                        />
+                                        <RechartsTooltip
+                                            cursor={false}
+                                            contentStyle={{ backgroundColor: 'hsl(var(--background)/0.8)', border: '1px solid hsl(var(--border)/0.5)', color: 'hsl(var(--foreground))' }}
+                                            itemStyle={{ color: 'hsl(var(--foreground))' }}
+                                            content={<ChartTooltipContent indicator="dot" hideLabel />}
+                                        />
+                                        <Line
+                                            dataKey="value"
+                                            type="monotone"
+                                            stroke="var(--color-value)"
+                                            strokeWidth={2}
+                                            dot={false}
+                                        />
+                                    </LineChart>
+                                </ChartContainer>
                             </div>
-                         )}
 
+                            <div className="flex justify-between items-center text-base border border-primary-foreground/20 p-2 rounded-md text-primary-foreground/90 bg-primary/50"> {/* Changed background */}
+                                <span>Day: {gameState.day} / {gameState.maxDays}</span>
+                                <span>Balance: <span className={cn(
+                                    "font-semibold",
+                                    gameState.balance >= INITIAL_BALANCE ? "text-green-400" : "text-red-400"
+                                )}>${gameState.balance.toFixed(2)} DAI</span></span>
+                                <span className="capitalize">Market Sentiment: <span className={cn(
+                                    gameState.marketSentiment === 'euphoric' && 'text-green-400',
+                                    gameState.marketSentiment === 'bullish' && 'text-green-300',
+                                    gameState.marketSentiment === 'neutral' && 'text-primary-foreground/70',
+                                    gameState.marketSentiment === 'bearish' && 'text-red-300',
+                                    gameState.marketSentiment === 'panic' && 'text-red-500 font-bold',
+                                )}>{gameState.marketSentiment}</span></span>
+                            </div>
 
-                         {/* Display Outcome Event FIRST if available */}
-                         {gameState.outcomeEvent ? (
-                            <Card className="bg-muted/50 border-dashed">
-                                <CardHeader className="pb-2 pt-3 px-3">
-                                     <CardTitle className="text-lg flex items-center gap-1"> {/* Increased title size */}
-                                         {gameState.outcomeEvent.type === 'positive' && <TrendingUp size={16} className="text-green-500"/>}
-                                         {gameState.outcomeEvent.type === 'negative' && <TrendingDown size={16} className="text-red-500"/>}
-                                         {gameState.outcomeEvent.type === 'neutral' && <Info size={16} className="text-gray-500"/>}
-                                         Result of Day {gameState.day}:
-                                    </CardTitle>
-                                 </CardHeader>
-                                <CardContent className="text-base pb-3 px-3"> {/* Increased text size */}
-                                     <p className="text-muted-foreground mb-3">{gameState.outcomeEvent.description}</p>
-                                </CardContent>
-                                 {/* Ensure button takes full width within the card footer area */}
-                                 <Button onClick={handleContinueNextDay} className="w-full">Continue to Day {gameState.day + 1}</Button>
-                             </Card>
-                         ) : gameState.currentEvent ? (
-                             // Current Event Display (if no outcome)
-                            <Card className="bg-muted/50 border-dashed">
-                                <CardHeader className="pb-2 pt-3 px-3">
-                                     <CardTitle className="text-lg flex items-center gap-1"> {/* Increased title size */}
-                                         {gameState.currentEvent.type === 'rumor' && <Brain size={16} className="text-purple-500"/>}
-                                         {gameState.currentEvent.type === 'tweet' && <Send size={16} className="text-blue-500"/>}
-                                         {gameState.currentEvent.type === 'marketShift' && (gameState.marketSentiment === 'bearish' || gameState.marketSentiment === 'panic' ? <TrendingDown size={16} className="text-red-500"/> : <TrendingUp size={16} className="text-green-500"/>)}
-                                         {['scamOpportunity', 'exploit'].includes(gameState.currentEvent.type) && <TrendingDown size={16} className="text-yellow-500"/>} {/* Updated icon for scam/exploit */}
-                                         {['news', 'utilityLaunch'].includes(gameState.currentEvent.type) && <Info size={16} className="text-gray-500"/>}
-                                         {gameState.currentEvent.type === 'nftOpportunity' && <ImageIcon size={16} className="text-indigo-500"/>}
-                                         {['daoDrama', 'microcap'].includes(gameState.currentEvent.type) && <HelpCircle size={16} className="text-orange-500"/>} {/* Added icons */}
-                                         {gameState.currentEvent.title}
-                                    </CardTitle>
-                                     {gameState.currentEvent.potentialGain && <Badge variant="outline" className="w-fit text-sm mt-1">{gameState.currentEvent.potentialGain}</Badge>} {/* Increased badge text */}
-                                 </CardHeader>
-                                <CardContent className="text-base pb-3 px-3"> {/* Increased text size */}
-                                     <p className="text-muted-foreground mb-3">{gameState.currentEvent.description}</p>
-                                     <div className="flex gap-2 flex-wrap">
-                                        {gameState.currentEvent.actionOptions?.map(action => (
-                                            <Button
-                                                key={action}
-                                                variant="outline" // Default outline for all action buttons
-                                                size="default" // Ensure default button size for larger text
-                                                onClick={() => handlePlayerAction(action)}
-                                                className="text-base" // Increase button text size
-                                            >
-                                                {action}
-                                            </Button>
-                                        ))}
-                                    </div>
-                                 </CardContent>
-                             </Card>
-                         ) : (
-                              // Display Last Action Feedback when no event or outcome
-                             <div className="flex-1 flex items-center justify-center text-center text-muted-foreground italic p-4 border border-dashed rounded-md min-h-[100px] text-base"> {/* Increased text size */}
-                                 {gameState.lastActionStatus || "Processing..."}
-                             </div>
-                         )}
+                            {gameState.currentEvent?.actionOptions?.includes('Invest') && (
+                                <div className="space-y-2 bg-primary/50 p-3 rounded-md"> {/* Changed background */}
+                                    <Label htmlFor="investment-slider" className="text-base text-primary-foreground/90">Investment % (of Balance): {investmentPercentage}%</Label>
+                                    <Slider
+                                        id="investment-slider"
+                                        min={0}
+                                        max={100}
+                                        step={5}
+                                        value={[investmentPercentage]}
+                                        onValueChange={(value) => setInvestmentPercentage(value[0])}
+                                    />
+                                </div>
+                            )}
 
+                            {gameState.outcomeEvent ? (
+                                <Card className="bg-primary border-primary-foreground/20 text-primary-foreground"> {/* Changed background */}
+                                    <CardHeader className="pb-2 pt-3 px-3">
+                                        <CardTitle className="text-lg flex items-center gap-1 text-primary-foreground">
+                                            {gameState.outcomeEvent.type === 'positive' && <TrendingUp size={16} className="text-green-400"/>}
+                                            {gameState.outcomeEvent.type === 'negative' && <TrendingDown size={16} className="text-red-400"/>}
+                                            {gameState.outcomeEvent.type === 'neutral' && <Info size={16} className="text-primary-foreground/70"/>}
+                                            Result of Day {gameState.day}:
+                                        </CardTitle>
+                                    </CardHeader>
+                                    <CardContent className="text-base pb-3 px-3 text-primary-foreground/80">
+                                        <p className="mb-3">{gameState.outcomeEvent.description}</p>
+                                    </CardContent>
+                                    <Button onClick={handleContinueNextDay} className="w-full bg-accent hover:bg-accent/90 text-accent-foreground">Continue to Day {gameState.day + 1}</Button>
+                                </Card>
+                            ) : gameState.currentEvent ? (
+                                <Card className="bg-primary border-primary-foreground/20 text-primary-foreground"> {/* Changed background */}
+                                    <CardHeader className="pb-2 pt-3 px-3">
+                                        <CardTitle className="text-lg flex items-center gap-1 text-primary-foreground">
+                                            {gameState.currentEvent.type === 'rumor' && <Brain size={16} className="text-purple-400"/>}
+                                            {gameState.currentEvent.type === 'tweet' && <Send size={16} className="text-blue-400"/>}
+                                            {gameState.currentEvent.type === 'marketShift' && (gameState.marketSentiment === 'bearish' || gameState.marketSentiment === 'panic' ? <TrendingDown size={16} className="text-red-400"/> : <TrendingUp size={16} className="text-green-400"/>)}
+                                            {['scamOpportunity', 'exploit'].includes(gameState.currentEvent.type) && <TrendingDown size={16} className="text-yellow-400"/>}
+                                            {['news', 'utilityLaunch'].includes(gameState.currentEvent.type) && <Info size={16} className="text-primary-foreground/70"/>}
+                                            {gameState.currentEvent.type === 'nftOpportunity' && <ImageIcon size={16} className="text-indigo-400"/>}
+                                            {['daoDrama', 'microcap'].includes(gameState.currentEvent.type) && <HelpCircle size={16} className="text-orange-400"/>}
+                                            {gameState.currentEvent.title}
+                                        </CardTitle>
+                                        {gameState.currentEvent.potentialGain && <Badge variant="outline" className="w-fit text-sm mt-1 border-primary-foreground/30 text-primary-foreground/80">{gameState.currentEvent.potentialGain}</Badge>}
+                                    </CardHeader>
+                                    <CardContent className="text-base pb-3 px-3">
+                                        <p className="text-primary-foreground/80 mb-3">{gameState.currentEvent.description}</p>
+                                        <div className="flex gap-2 flex-wrap">
+                                            {gameState.currentEvent.actionOptions?.map(action => (
+                                                <Button
+                                                    key={action}
+                                                    variant="outline"
+                                                    size="default"
+                                                    onClick={() => handlePlayerAction(action)}
+                                                     className="text-base border-primary-foreground/30 text-primary-foreground/90 hover:bg-primary-foreground/10"
+                                                >
+                                                    {action}
+                                                </Button>
+                                            ))}
+                                        </div>
+                                    </CardContent>
+                                </Card>
+                            ) : (
+                                <div className="flex-1 flex items-center justify-center text-center text-primary-foreground/70 italic p-4 border border-primary-foreground/20 border-dashed rounded-md min-h-[100px] text-base bg-primary/50"> {/* Changed background */}
+                                    {gameState.lastActionStatus || "Processing..."}
+                                </div>
+                            )}
 
-                         {/* Progress Bar */}
-                          <Progress value={(gameState.day / gameState.maxDays) * 100} className="h-2 mt-auto" />
-                    </div>
-                )}
+                            <Progress value={(gameState.day / gameState.maxDays) * 100} className="h-2 mt-auto" />
+                        </div>
+                    )}
 
-
-                {isFinished && (
-                     <div className="flex-1 flex flex-col items-center justify-center p-4 space-y-4">
-                         <h3 className="text-2xl font-semibold">Cycle Ended!</h3> {/* Increased size */}
-                          {/* Display Final Chart */}
-                          <div className="h-[150px] w-full max-w-md border p-1 rounded-md bg-muted/30">
-                             <ChartContainer config={chartConfig} className="h-full w-full">
-                                <LineChart data={gameState.history} margin={{ top: 5, right: 5, left: -25, bottom: 0 }}>
-                                     <CartesianGrid vertical={false} strokeDasharray="3 3" stroke="hsl(var(--muted-foreground)/0.3)" />
-                                     <XAxis dataKey="day" hide />
-                                     <YAxis hide domain={['auto', 'auto']}/>
-                                     <RechartsTooltip content={<ChartTooltipContent indicator="dot" hideLabel />} />
-                                     <Line dataKey="value" type="monotone" stroke="var(--color-value)" strokeWidth={2} dot={false}/>
-                                 </LineChart>
-                             </ChartContainer>
-                         </div>
-                         <p className="text-base text-muted-foreground text-center">{gameState.lastActionStatus || "Game Over"}</p> {/* Increased text size */}
-                          {/* Display earned XP */}
-                         {earnedXp > 0 && <p className="text-primary font-medium text-lg">Earned {earnedXp} XP!</p>} {/* Increased text size */}
-                          <div className="flex gap-4">
-                              {/* Copy result button (non-functional placeholder) */}
-                             <Button variant="outline" className="gap-2 text-base" disabled> {/* Increased button text size */}
-                               <Send size={16}/> Flex Result
-                             </Button>
-                         </div>
-                     </div>
-                 )}
-
-            </CardContent>
+                    {isFinished && (
+                        <div className="flex-1 flex flex-col items-center justify-center p-4 space-y-4">
+                            <h3 className="text-2xl font-semibold text-primary-foreground">Cycle Ended!</h3>
+                            <div className="h-[150px] w-full max-w-md border border-primary-foreground/20 p-1 rounded-md bg-primary/50"> {/* Changed background */}
+                                <ChartContainer config={chartConfig} className="h-full w-full">
+                                    <LineChart data={gameState.history} margin={{ top: 5, right: 5, left: -25, bottom: 0 }}>
+                                        <CartesianGrid vertical={false} strokeDasharray="3 3" stroke="hsl(var(--primary-foreground)/0.2)" />
+                                        <XAxis dataKey="day" hide />
+                                        <YAxis hide domain={['auto', 'auto']}/>
+                                         <RechartsTooltip
+                                            cursor={false}
+                                            contentStyle={{ backgroundColor: 'hsl(var(--background)/0.8)', border: '1px solid hsl(var(--border)/0.5)', color: 'hsl(var(--foreground))' }}
+                                            itemStyle={{ color: 'hsl(var(--foreground))' }}
+                                            content={<ChartTooltipContent indicator="dot" hideLabel />}
+                                          />
+                                        <Line dataKey="value" type="monotone" stroke="var(--color-value)" strokeWidth={2} dot={false}/>
+                                    </LineChart>
+                                </ChartContainer>
+                            </div>
+                            <p className="text-base text-primary-foreground/80 text-center">{gameState.lastActionStatus || "Game Over"}</p>
+                            {earnedXp > 0 && <p className="text-primary font-medium text-lg">Earned {earnedXp} XP!</p>}
+                            <div className="flex gap-4">
+                                <Button variant="outline" className="gap-2 text-base border-primary-foreground/30 text-primary-foreground/90 hover:bg-primary-foreground/10" disabled>
+                                <Send size={16}/> Flex Result
+                                </Button>
+                            </div>
+                        </div>
+                    )}
+                </CardContent>
+            </div>
         </Card>
     );
 }
+
