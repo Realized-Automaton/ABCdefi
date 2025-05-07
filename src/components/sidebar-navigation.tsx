@@ -10,7 +10,7 @@ import { BookOpen, Gamepad2, Trophy, BarChart3, Settings } from 'lucide-react';
 // Define navigation items - SWAPPED Quests and Challenges labels/icons
 const navItems = [
     { href: '/', label: 'Challenges', icon: <Gamepad2 />, tooltip: 'Challenges' }, // Was Quests (BookOpen)
-    { href: '/challenges', label: 'Quests', icon: <BookOpen />, tooltip: 'Quests' }, // Was Challenges (Gamepad2)
+    { href: '/challenges', label: 'Scam Quests', icon: <BookOpen />, tooltip: 'Scam Quests' }, // Was Challenges (Gamepad2)
     { href: '/badges', label: 'Badges', icon: <Trophy />, tooltip: 'Badges' },
     { href: '/leaderboard', label: 'Leaderboard', icon: <BarChart3 />, tooltip: 'Leaderboard' },
     { href: '/settings', label: 'Settings', icon: <Settings />, tooltip: 'Settings' },
@@ -36,4 +36,5 @@ export function SidebarNavigation() {
         </SidebarMenu>
     );
 }
+
 
