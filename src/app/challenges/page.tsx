@@ -9,7 +9,7 @@ import { SidebarNavigation } from '@/components/sidebar-navigation';
 import { WhackAScammerGame } from '@/components/whack-a-scammer-game';
 import { CryptoQuiz } from '@/components/crypto-quiz';
 import { ConnectWalletButton } from '@/components/connect-wallet-button'; // Import Connect Wallet button
-import { Lightbulb, Gamepad2, Skull } from 'lucide-react'; // Import icons for header, added Skull
+import { Gamepad2, Skull, TrendingUp } from 'lucide-react'; // Import icons for header, added Skull, replaced Lightbulb with TrendingUp
 import { ScamAlertModal } from '@/components/scam-alert-modal'; // Import the new modal component
 import { useToast } from '@/hooks/use-toast'; // Import useToast
 import { useUser } from '@/context/user-context'; // Import useUser
@@ -95,10 +95,9 @@ export default function ChallengesPage() {
              <SidebarTrigger className="md:hidden" />
              {/* Replicated Header Content from page.tsx */}
              <div className="flex-1 flex items-center justify-center gap-1 sm:gap-2">
-                 <Lightbulb className="h-5 w-5 text-primary hidden sm:inline-block" /> {/* Hide icon on smallest screens */}
-                 {/* Adjusted text size for responsiveness */}
-                <div className="hidden md:block text-base sm:text-lg md:text-xl font-semibold text-foreground text-center font-sans flex-shrink min-w-0"> {/* Hide on mobile, show on md+ */}
-                  Increase your crypto IQ with challenges and quests
+                 <TrendingUp className="h-5 w-5 text-primary hidden sm:inline-block" /> {/* Hide icon on smallest screens */}
+                <div className="hidden md:block text-base sm:text-lg md:text-xl font-semibold text-primary text-center font-sans flex-shrink min-w-0 bg-[#faf0dc] px-6 py-1 rounded-full shadow-md">
+                  Challenges and quests that increase your crypto IQ
                 </div>
                  <Gamepad2 className="h-5 w-5 text-primary hidden sm:inline-block" /> {/* Hide icon on smallest screens */}
              </div>
@@ -152,4 +151,3 @@ export default function ChallengesPage() {
     </div>
   );
 }
-
