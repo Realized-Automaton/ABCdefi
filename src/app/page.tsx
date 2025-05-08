@@ -15,7 +15,7 @@ import { UserProfileCard } from '@/components/user-profile-card';
 import { CryptoInfographicCard } from '@/components/crypto-infographic-card';
 import { LpCard } from '@/components/lp-card';
 import { ConnectWalletButton } from '@/components/connect-wallet-button';
-import { DeFiDegenGame } from '@/components/defi-degen-game'; // Import DeFiDegenGame
+
 
 // Mock data - replace with actual data fetching
 const quests = [
@@ -45,14 +45,14 @@ export default function Home() {
         <SidebarContent className="p-4 flex-1">
           <SidebarNavigation />
         </SidebarContent>
-        <SidebarFooter className="p-4 flex items-center justify-between">
-          <ThemeToggleButton />
+        <SidebarFooter className="p-4 flex items-center justify-between"> {/* Changed back to flex-row and justify-between */}
+            <ThemeToggleButton />
         </SidebarFooter>
       </Sidebar>
 
       <SidebarInset className="flex flex-col">
          {/* Updated Header Structure for Responsiveness */}
-         <header className="sticky top-0 z-10 flex flex-col md:flex-row md:h-[57px] md:items-center gap-2 border-b bg-background px-4 py-2 md:py-0"> {/* Adjusted padding for mobile */}
+          <header className="sticky top-0 z-10 flex flex-col md:flex-row md:h-[57px] md:items-center gap-2 border-b bg-background px-4 py-2 md:py-0"> {/* Adjusted padding for mobile */}
            {/* Row 1 (Mobile) / Part 1 (Desktop): Trigger, Buttons */}
            <div className="flex w-full items-center justify-between md:w-auto"> {/* Adjust width for desktop */}
              <SidebarTrigger className="md:hidden" />
@@ -66,8 +66,10 @@ export default function Home() {
            {/* Row 2 (Mobile) / Part 2 (Desktop): Banner (Centered) */}
            <div className="flex w-full items-center justify-center gap-1 sm:gap-2 md:flex-1 md:order-first"> {/* Centered banner, takes remaining space on desktop, positioned first on desktop */}
              <BookOpen className="h-5 w-5 text-primary hidden md:inline-block" />
-             <div className="text-center font-sans text-sm sm:text-base font-semibold text-primary bg-[#faf0dc] px-3 sm:px-6 py-1 rounded-full shadow-md">
-               Master DeFi Fundamentals: Interactive Learning
+             {/* Increased banner font size on small screens and up (sm:) */}
+             {/* Updated Title */}
+             <div className="text-center font-sans text-sm sm:text-base md:text-lg font-semibold text-primary bg-[#faf0dc] px-3 sm:px-6 py-1 rounded-full shadow-md">
+                Master DeFi Fundamentals: Interactive Learning
              </div>
              <GraduationCap className="h-5 w-5 text-primary hidden md:inline-block" />
            </div>
@@ -77,14 +79,13 @@ export default function Home() {
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
             <UserProfileCard className="col-span-1 h-full" />
             <CryptoInfographicCard className="col-span-1 h-full" />
-            <Leaderboard className="col-span-1 h-full" />
+            <Leaderboard className="lg:col-span-1 h-full" /> {/* Adjusted span */}
 
             <FaucetCard className="col-span-1 h-full" questId={4} xpReward={50} />
             <SwapCard className="col-span-1 h-full" questId={2} xpReward={75} />
             <LpCard className="col-span-1 h-full" questId={3} xpReward={100} />
 
-            {/* DeFiDegenGame added here, spanning multiple columns */}
-            <DeFiDegenGame className="md:col-span-2 lg:col-span-3 h-full" questId={8} xpReward={250} />
+            {/* DeFiDegenGame moved to challenges page */}
 
             <Card className="md:col-span-2 lg:col-span-3 h-full">
               <CardHeader>
