@@ -92,19 +92,25 @@ export default function ChallengesPage() {
       </Sidebar>
 
       <SidebarInset className="flex flex-col">
-         <header className="sticky top-0 z-10 flex h-[57px] items-center gap-2 border-b bg-background px-4"> {/* Reduced default gap */}
+         <header className="sticky top-0 z-10 flex flex-col md:flex-row md:h-[57px] md:items-center gap-2 border-b bg-background px-4 py-2"> {/* py-2 for mobile */}
+           {/* Row 1: Trigger, Buttons */}
+           <div className="flex w-full items-center justify-between">
              <SidebarTrigger className="md:hidden" />
-             <div className="flex-1 flex items-center justify-center gap-1 sm:gap-2">
-                 <Gamepad2 className="h-5 w-5 text-primary hidden sm:inline-block" /> {/* Changed icon to Gamepad2 */}
-                <div className="hidden md:block text-base sm:text-lg md:text-xl font-semibold text-primary text-center font-sans flex-shrink min-w-0 bg-[#faf0dc] px-6 py-1 rounded-full shadow-md">
-                  Challenges &amp; Scam Quests to Boost Your Crypto IQ {/* Capitalized Q */}
-                </div>
-                 <Skull className="h-5 w-5 text-primary hidden sm:inline-block" /> {/* Changed icon to Skull */}
-             </div>
-             <ConnectWalletButton /> {/* Add Connect Wallet button */}
-             <div className="ml-auto md:hidden">
+             <div className="flex items-center gap-2 ml-auto"> {/* Buttons always on right */}
+               <ConnectWalletButton />
+               <div className="md:hidden"> {/* Mobile Theme Toggle */}
                  <ThemeToggleButton />
+               </div>
              </div>
+           </div>
+           {/* Row 2: Banner (Centered) */}
+           <div className="flex w-full items-center justify-center gap-1 sm:gap-2 md:flex-1 md:order-first"> {/* order-first on desktop places it between trigger and buttons */}
+             <Gamepad2 className="h-5 w-5 text-primary hidden md:inline-block" />
+             <div className="text-center font-sans text-sm sm:text-base font-semibold text-primary bg-[#faf0dc] px-3 sm:px-6 py-1 rounded-full shadow-md">
+               Challenges &amp; Scam quests to Boost Your Crypto IQ {/* Capitalized Q */}
+             </div>
+             <Skull className="h-5 w-5 text-primary hidden md:inline-block" />
+           </div>
          </header>
         <main className="flex-1 overflow-auto p-4 md:p-6 md:text-base"> {/* Added md:text-base */}
           <div className="grid gap-6 md:grid-cols-1 lg:grid-cols-2">
