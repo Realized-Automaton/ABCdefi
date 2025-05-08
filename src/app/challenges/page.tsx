@@ -9,13 +9,13 @@ import { SidebarNavigation } from '@/components/sidebar-navigation';
 import { WhackAScammerGame } from '@/components/whack-a-scammer-game';
 import { CryptoQuiz } from '@/components/crypto-quiz';
 import { ConnectWalletButton } from '@/components/connect-wallet-button'; // Import Connect Wallet button
-import { Gamepad2, Skull, TrendingUp } from 'lucide-react'; // Import icons for header, added Skull, replaced Lightbulb with TrendingUp
+import { Gamepad2, Skull } from 'lucide-react'; // Import icons for header, replaced TrendingUp with Gamepad2
 import { ScamAlertModal } from '@/components/scam-alert-modal'; // Import the new modal component
 import { useToast } from '@/hooks/use-toast'; // Import useToast
 import { useUser } from '@/context/user-context'; // Import useUser
 import { TelegramScamChatChallenge } from '@/components/telegram-scam-chat-challenge'; // Import the new challenge component
 import { RugPullCard } from '@/components/rug-pull-card'; // Import RugPullCard
-// Removed DeFiDegenGame import
+
 
 export default function ChallengesPage() {
   const [isScamModalOpen, setIsScamModalOpen] = React.useState(false);
@@ -94,55 +94,31 @@ export default function ChallengesPage() {
       <SidebarInset className="flex flex-col">
          <header className="sticky top-0 z-10 flex h-[57px] items-center gap-2 border-b bg-background px-4"> {/* Reduced default gap */}
              <SidebarTrigger className="md:hidden" />
-             {/* Replicated Header Content from page.tsx */}
              <div className="flex-1 flex items-center justify-center gap-1 sm:gap-2">
-                 <TrendingUp className="h-5 w-5 text-primary hidden sm:inline-block" /> {/* Hide icon on smallest screens */}
+                 <Gamepad2 className="h-5 w-5 text-primary hidden sm:inline-block" /> {/* Changed icon to Gamepad2 */}
                 <div className="hidden md:block text-base sm:text-lg md:text-xl font-semibold text-primary text-center font-sans flex-shrink min-w-0 bg-[#faf0dc] px-6 py-1 rounded-full shadow-md">
-                  Challenges &amp; Scam Quests to Boost Your Crypto IQ
+                  Challenges &amp; Scam quests to Boost Your Crypto IQ
                 </div>
-                 <Gamepad2 className="h-5 w-5 text-primary hidden sm:inline-block" /> {/* Hide icon on smallest screens */}
+                 <Skull className="h-5 w-5 text-primary hidden sm:inline-block" /> {/* Changed icon to Skull */}
              </div>
              <ConnectWalletButton /> {/* Add Connect Wallet button */}
-             {/* Keep mobile theme toggle */}
              <div className="ml-auto md:hidden">
                  <ThemeToggleButton />
              </div>
          </header>
         <main className="flex-1 overflow-auto p-4 md:p-6 md:text-base"> {/* Added md:text-base */}
-           {/* Adjust grid layout */}
-          <div className="grid gap-6 md:grid-cols-1 lg:grid-cols-2"> {/* Changed grid cols */}
+          <div className="grid gap-6 md:grid-cols-1 lg:grid-cols-2">
 
-            {/* Whack-a-Scammer Game Card */}
-             <WhackAScammerGame className="lg:col-span-1" /> {/* Spans 1 column */}
-
-
-            {/* Crypto Quiz Card */}
-             <CryptoQuiz className="lg:col-span-1" /> {/* Spans 1 column */}
-
-            {/* Telegram Scam Chat Challenge Card */}
-             <TelegramScamChatChallenge className="lg:col-span-2" questId={7} xpReward={100} /> {/* Spans full width */}
-
-            {/* Spot the Rug Pull Card - Moved here */}
+            <WhackAScammerGame className="lg:col-span-1" />
+            <CryptoQuiz className="lg:col-span-1" />
+            <TelegramScamChatChallenge className="lg:col-span-2" questId={7} xpReward={100} />
             <RugPullCard className="lg:col-span-2" questId={6} xpReward={150} />
-
-
-            {/* Add placeholder for potential future challenges if needed */}
-            {/*
-            <Card className="lg:col-span-2">
-              <CardHeader>
-                <CardTitle>More Challenges Coming Soon!</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-muted-foreground">Keep checking back for new ways to test your skills.</p>
-              </CardContent>
-            </Card>
-            */}
+            {/* DeFiDegenGame removed from here */}
 
           </div>
         </main>
       </SidebarInset>
 
-       {/* Render the Scam Alert Modal */}
        <ScamAlertModal
          open={isScamModalOpen}
          onOpenChange={setIsScamModalOpen}
@@ -152,4 +128,3 @@ export default function ChallengesPage() {
     </div>
   );
 }
-
