@@ -47,7 +47,7 @@ export default function ChallengesPage() {
               title: "Scam Avoided! 🎉",
               description: `Great job! You spotted your first scam and earned ${SCAM_SPOT_XP_REWARD} XP. Always be vigilant!`, // Updated description
               variant: "success", // Use new success variant
-              duration: 5000,
+              duration: 3000, // Set duration to 3 seconds
             });
         }, 0);
         // Potentially disable re-rewarding here if needed
@@ -61,7 +61,7 @@ export default function ChallengesPage() {
           title: <>Uh Oh! You&apos;re Rekt! <Skull className="inline-block h-4 w-4 ml-1" /></>, // Updated title with icon
           description: "Signing unknown transactions can be risky. Luckily, this was just a simulation! Always verify DApps and transaction details.", // Updated description
           variant: "destructive", // Use destructive (red) style for warning/failure
-          duration: 7000,
+          duration: 3000, // Set duration to 3 seconds
         });
     }, 0);
     setIsScamModalOpen(false); // Close modal
@@ -98,7 +98,7 @@ export default function ChallengesPage() {
              <div className="flex-1 flex items-center justify-center gap-1 sm:gap-2">
                  <TrendingUp className="h-5 w-5 text-primary hidden sm:inline-block" /> {/* Hide icon on smallest screens */}
                 <div className="hidden md:block text-base sm:text-lg md:text-xl font-semibold text-primary text-center font-sans flex-shrink min-w-0 bg-[#faf0dc] px-6 py-1 rounded-full shadow-md">
-                  Challenges and quests that increase your crypto IQ
+                  Challenges &amp; Scam Quests to Boost Your Crypto IQ
                 </div>
                  <Gamepad2 className="h-5 w-5 text-primary hidden sm:inline-block" /> {/* Hide icon on smallest screens */}
              </div>
@@ -152,3 +152,4 @@ export default function ChallengesPage() {
     </div>
   );
 }
+
