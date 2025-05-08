@@ -57,7 +57,7 @@ export default function Home() {
           <div className="flex-1 flex items-center justify-center gap-1 sm:gap-2">
             <TrendingUp className="h-5 w-5 text-primary hidden sm:inline-block" />
             <div className="hidden md:block text-base sm:text-lg md:text-xl font-semibold text-primary text-center font-sans flex-shrink min-w-0 bg-[#faf0dc] px-6 py-1 rounded-full shadow-md">
-              Challenges and quests that increase your crypto IQ
+              Challenges &amp; Scam Quests to Boost Your Crypto IQ
             </div>
             <Gamepad2 className="h-5 w-5 text-primary hidden sm:inline-block" />
           </div>
@@ -108,3 +108,4 @@ export default function Home() {
     </div>
   );
 }
+
