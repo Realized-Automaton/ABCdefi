@@ -14,6 +14,7 @@ import { ScamAlertModal } from '@/components/scam-alert-modal'; // Import the ne
 import { useToast } from '@/hooks/use-toast'; // Import useToast
 import { useUser } from '@/context/user-context'; // Import useUser
 import { TelegramScamChatChallenge } from '@/components/telegram-scam-chat-challenge'; // Import the new challenge component
+import { RugPullCard } from '@/components/rug-pull-card'; // Import RugPullCard
 // Removed DeFiDegenGame import
 
 export default function ChallengesPage() {
@@ -121,8 +122,8 @@ export default function ChallengesPage() {
             {/* Telegram Scam Chat Challenge Card */}
              <TelegramScamChatChallenge className="lg:col-span-2" questId={7} xpReward={100} /> {/* Spans full width */}
 
-             {/* DeFi Degen Game Card - REMOVED FROM HERE */}
-             {/* <DeFiDegenGame className="lg:col-span-2" questId={8} xpReward={250} /> */}
+            {/* Spot the Rug Pull Card - Moved here */}
+            <RugPullCard className="lg:col-span-2" questId={6} xpReward={150} />
 
 
             {/* Add placeholder for potential future challenges if needed */}
