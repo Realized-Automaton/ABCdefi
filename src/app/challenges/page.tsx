@@ -92,19 +92,20 @@ export default function ChallengesPage() {
       </Sidebar>
 
       <SidebarInset className="flex flex-col">
-         <header className="sticky top-0 z-10 flex flex-col md:flex-row md:h-[57px] md:items-center gap-2 border-b bg-background px-4 py-2"> {/* py-2 for mobile */}
-           {/* Row 1: Trigger, Buttons */}
-           <div className="flex w-full items-center justify-between">
+         {/* Updated Header Structure for Responsiveness */}
+         <header className="sticky top-0 z-10 flex flex-col md:flex-row md:h-[57px] md:items-center gap-2 border-b bg-background px-4 py-2 md:py-0"> {/* Adjusted padding for mobile */}
+           {/* Row 1 (Mobile) / Part 1 (Desktop): Trigger, Buttons */}
+           <div className="flex w-full items-center justify-between md:w-auto"> {/* Adjust width for desktop */}
              <SidebarTrigger className="md:hidden" />
-             <div className="flex items-center gap-2 ml-auto"> {/* Buttons always on right */}
+             <div className="flex items-center gap-2 ml-auto md:ml-0"> {/* Buttons group */}
                <ConnectWalletButton />
                <div className="md:hidden"> {/* Mobile Theme Toggle */}
                  <ThemeToggleButton />
                </div>
              </div>
            </div>
-           {/* Row 2: Banner (Centered) */}
-           <div className="flex w-full items-center justify-center gap-1 sm:gap-2 md:flex-1 md:order-first"> {/* order-first on desktop places it between trigger and buttons */}
+           {/* Row 2 (Mobile) / Part 2 (Desktop): Banner (Centered) */}
+           <div className="flex w-full items-center justify-center gap-1 sm:gap-2 md:flex-1 md:order-first"> {/* Centered banner, takes remaining space on desktop, positioned first on desktop */}
              <Gamepad2 className="h-5 w-5 text-primary hidden md:inline-block" />
              <div className="text-center font-sans text-sm sm:text-base font-semibold text-primary bg-[#faf0dc] px-3 sm:px-6 py-1 rounded-full shadow-md">
                Challenges &amp; Scam quests to Boost Your Crypto IQ {/* Capitalized Q */}
