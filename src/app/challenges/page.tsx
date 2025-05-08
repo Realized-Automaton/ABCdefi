@@ -15,6 +15,8 @@ import { useToast } from '@/hooks/use-toast'; // Import useToast
 import { useUser } from '@/context/user-context'; // Import useUser
 import { TelegramScamChatChallenge } from '@/components/telegram-scam-chat-challenge'; // Import the new challenge component
 import { RugPullCard } from '@/components/rug-pull-card'; // Import RugPullCard
+import { DeFiDegenGame } from '@/components/defi-degen-game'; // Import DeFiDegenGame
+
 
 
 export default function ChallengesPage() {
@@ -86,8 +88,9 @@ export default function ChallengesPage() {
         <SidebarContent className="p-4 flex-1">
            <SidebarNavigation /> {/* Use the navigation component */}
         </SidebarContent>
-         <SidebarFooter className="p-4 flex items-center justify-between">
+         <SidebarFooter className="p-4 flex items-center justify-between"> {/* Changed back to flex-row and justify-between */}
              <ThemeToggleButton />
+             {/* Removed DownloadSourceCodeButton */}
          </SidebarFooter>
       </Sidebar>
 
@@ -106,9 +109,10 @@ export default function ChallengesPage() {
            </div>
            {/* Row 2 (Mobile) / Part 2 (Desktop): Banner (Centered) */}
            <div className="flex w-full items-center justify-center gap-1 sm:gap-2 md:flex-1 md:order-first"> {/* Centered banner, takes remaining space on desktop, positioned first on desktop */}
-             <Gamepad2 className="h-5 w-5 text-primary hidden md:inline-block" />
-             <div className="text-center font-sans text-sm sm:text-base font-semibold text-primary bg-[#faf0dc] px-3 sm:px-6 py-1 rounded-full shadow-md">
-               Challenges &amp; Scam quests to Boost Your Crypto IQ {/* Capitalized Q */}
+             <Gamepad2 className="h-5 w-5 text-primary hidden md:inline-block" /> {/* Keep icon */}
+             {/* Increased banner font size on small screens and up (sm:), medium and up (md:) */}
+             <div className="text-center font-sans text-sm sm:text-base md:text-lg font-semibold text-primary bg-[#faf0dc] px-3 sm:px-6 py-1 rounded-full shadow-md">
+               Challenges &amp; Scam Quests to Boost Your Crypto IQ {/* Capitalized 'Q' */}
              </div>
              <Skull className="h-5 w-5 text-primary hidden md:inline-block" />
            </div>
@@ -119,8 +123,10 @@ export default function ChallengesPage() {
             <WhackAScammerGame className="lg:col-span-1" />
             <CryptoQuiz className="lg:col-span-1" />
             <TelegramScamChatChallenge className="lg:col-span-2" questId={7} xpReward={100} />
+            {/* DeFiDegenGame added here */}
+            <DeFiDegenGame className="md:col-span-2 lg:col-span-2 h-full" questId={8} xpReward={250} />
             <RugPullCard className="lg:col-span-2" questId={6} xpReward={150} />
-            {/* DeFiDegenGame removed from here */}
+
 
           </div>
         </main>
@@ -135,4 +141,3 @@ export default function ChallengesPage() {
     </div>
   );
 }
-
