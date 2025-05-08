@@ -2,21 +2,20 @@
 import Image from 'next/image';
 import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarInset, SidebarTrigger } from '@/components/ui/sidebar';
 import { Button } from '@/components/ui/button';
-import { Check, Layers, ShieldCheck, Settings, BarChart3, Target, ScrollText, AlertTriangle, Gamepad2, BookOpen, TrendingUp } from 'lucide-react'; // Added Gamepad2, BookOpen, TrendingUp
+import { Check, Layers, ShieldCheck, Settings, BarChart3, Target, ScrollText, AlertTriangle, Gamepad2, BookOpen, TrendingUp, GraduationCap } from 'lucide-react'; // Added GraduationCap
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
 import { Badge } from '@/components/ui/badge';
 import { Leaderboard } from '@/components/leaderboard';
 import { FaucetCard } from '@/components/faucet-card';
 import { SwapCard } from '@/components/swap-card';
-// import { RugPullCard } from '@/components/rug-pull-card'; // Removed RugPullCard import
 import { ThemeToggleButton } from '@/components/theme-toggle-button';
 import { SidebarNavigation } from '@/components/sidebar-navigation';
 import { UserProfileCard } from '@/components/user-profile-card';
 import { CryptoInfographicCard } from '@/components/crypto-infographic-card';
 import { LpCard } from '@/components/lp-card';
 import { ConnectWalletButton } from '@/components/connect-wallet-button';
-import { DeFiDegenGame } from '@/components/defi-degen-game';
+import { DeFiDegenGame } from '@/components/defi-degen-game'; // Import DeFiDegenGame
 
 // Mock data - replace with actual data fetching
 const quests = [
@@ -55,11 +54,11 @@ export default function Home() {
         <header className="sticky top-0 z-10 flex h-[57px] items-center gap-2 border-b bg-background px-4">
           <SidebarTrigger className="md:hidden" />
           <div className="flex-1 flex items-center justify-center gap-1 sm:gap-2">
-            <TrendingUp className="h-5 w-5 text-primary hidden sm:inline-block" />
+            <BookOpen className="h-5 w-5 text-primary hidden sm:inline-block" /> {/* Changed icon to BookOpen for DeFi Basics */}
             <div className="hidden md:block text-base sm:text-lg md:text-xl font-semibold text-primary text-center font-sans flex-shrink min-w-0 bg-[#faf0dc] px-6 py-1 rounded-full shadow-md">
-              Challenges &amp; Scam Quests to Boost Your Crypto IQ
+              Master DeFi Fundamentals: Interactive Learning {/* Updated header text */}
             </div>
-            <Gamepad2 className="h-5 w-5 text-primary hidden sm:inline-block" />
+            <GraduationCap className="h-5 w-5 text-primary hidden sm:inline-block" /> {/* Changed icon to GraduationCap */}
           </div>
           <ConnectWalletButton />
           <div className="ml-auto md:hidden">
@@ -73,20 +72,17 @@ export default function Home() {
             <CryptoInfographicCard className="col-span-1 h-full" />
             <Leaderboard className="col-span-1 h-full" />
 
-            <DeFiDegenGame className="md:col-span-2 lg:col-span-3 h-full" questId={8} xpReward={250} /> {/* Ensure lg:col-span-3 is applied */}
-
-
             <FaucetCard className="col-span-1 h-full" questId={4} xpReward={50} />
             <SwapCard className="col-span-1 h-full" questId={2} xpReward={75} />
             <LpCard className="col-span-1 h-full" questId={3} xpReward={100} />
 
-            {/* RugPullCard removed from here */}
-            {/* <RugPullCard className="md:col-span-2 lg:col-span-3 h-full" questId={6} xpReward={150} /> */}
+            {/* DeFiDegenGame added here, spanning multiple columns */}
+            <DeFiDegenGame className="md:col-span-2 lg:col-span-3 h-full" questId={8} xpReward={250} />
 
-
-            <Card className="md:col-span-2 lg:col-span-3 h-full"> {/* Ensure lg:col-span-3 is applied */}
+            <Card className="md:col-span-2 lg:col-span-3 h-full">
               <CardHeader>
                 <CardTitle>Completed Quests</CardTitle>
+                 <CardDescription className="text-xs text-muted-foreground">(Note: This list shows progress on all quest types, including scam quests.)</CardDescription>
               </CardHeader>
               <CardContent>
                 <ul className="space-y-2">
@@ -108,4 +104,3 @@ export default function Home() {
     </div>
   );
 }
-
