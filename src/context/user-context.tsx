@@ -27,7 +27,7 @@ const calculateNextLevelXp = (level: number): number => {
 
 
 export function UserProvider({ children }: { children: ReactNode }) {
-  const [username, setUsername] = React.useState<string>("CryptoLearner123"); // Default username
+  const [username, setUsername] = React.useState<string>("CryptoLearn"); // Default username updated
   const [level, setLevel] = React.useState<number>(1); // Start at level 1
   const [xp, setXp] = React.useState<number>(0); // Start with 0 XP
    // Calculate initial nextLevelXp based on starting level
@@ -65,6 +65,7 @@ export function UserProvider({ children }: { children: ReactNode }) {
              toast({
                title: "Level Up!",
                description: `Congratulations! You reached Level ${lvl}!`,
+               duration: 3000, // Added duration
              });
            });
          }, 0);
@@ -95,3 +96,4 @@ export function useUser() {
   }
   return context;
 }
+
