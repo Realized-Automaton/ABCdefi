@@ -15,6 +15,7 @@ import { UserProfileCard } from '@/components/user-profile-card';
 import { CryptoInfographicCard } from '@/components/crypto-infographic-card';
 import { LpCard } from '@/components/lp-card';
 import { ConnectWalletButton } from '@/components/connect-wallet-button';
+import { DeFiDegenGame } from '@/components/defi-degen-game'; // Import DeFiDegenGame
 
 
 // Mock data - replace with actual data fetching
@@ -66,7 +67,7 @@ export default function Home() {
            {/* Row 2 (Mobile) / Part 2 (Desktop): Banner (Centered) */}
            <div className="flex w-full items-center justify-center gap-1 sm:gap-2 md:flex-1 md:order-first"> {/* Centered banner, takes remaining space on desktop, positioned first on desktop */}
              <BookOpen className="h-5 w-5 text-primary hidden md:inline-block" />
-             {/* Increased banner font size on small screens and up (sm:) */}
+             {/* Increased banner font size on small screens and up (sm:), medium and up (md:) */}
              {/* Updated Title */}
              <div className="text-center font-sans text-sm sm:text-base md:text-lg font-semibold text-primary bg-[#faf0dc] px-3 sm:px-6 py-1 rounded-full shadow-md">
                 Master DeFi Fundamentals: Interactive Learning
@@ -85,8 +86,10 @@ export default function Home() {
             <SwapCard className="col-span-1 h-full" questId={2} xpReward={75} />
             <LpCard className="col-span-1 h-full" questId={3} xpReward={100} />
 
-            {/* DeFiDegenGame moved to challenges page */}
+             {/* DeFiDegenGame added here */}
+            <DeFiDegenGame className="md:col-span-2 lg:col-span-3 h-full" questId={8} xpReward={250} />
 
+            {/* Completed Quests Card moved to the bottom */}
             <Card className="md:col-span-2 lg:col-span-3 h-full">
               <CardHeader>
                 <CardTitle>Completed Quests</CardTitle>
@@ -106,6 +109,7 @@ export default function Home() {
                 </ul>
               </CardContent>
             </Card>
+
           </div>
         </main>
       </SidebarInset>
