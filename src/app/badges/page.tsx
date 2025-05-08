@@ -36,11 +36,27 @@ export default function BadgesPage() {
 
       <SidebarInset className="flex flex-col">
          <header className="sticky top-0 z-10 flex h-[57px] items-center gap-1 border-b bg-background px-4">
-             <SidebarTrigger className="md:hidden" />
-             {/* Removed h1 title */}
-             <ConnectWalletButton /> {/* Add Connect Wallet button */}
-             <div className="ml-auto md:hidden"> {/* Adjust margin for mobile, use ml-auto */}
+            {/* Container for Trigger and Mobile Logo */}
+             <div className="flex items-center gap-2">
+               <SidebarTrigger className="md:hidden" />
+               {/* Logo for mobile view */}
+               <div className="md:hidden">
+                 <Image
+                   src="https://i.ibb.co/bMgZz4h4/a-logo-for-a-crypto-learning-and-gaming-applicatio.png"
+                   alt="ABC De-fi Logo"
+                   width={80} // Smaller width for mobile header
+                   height={20} // Adjust height proportionally
+                   className="h-auto"
+                   unoptimized
+                 />
+               </div>
+             </div>
+             {/* Container for Buttons */}
+             <div className="ml-auto flex items-center gap-2"> {/* Use ml-auto to push buttons right */}
+               <ConnectWalletButton />
+               <div className="md:hidden"> {/* Mobile Theme Toggle */}
                  <ThemeToggleButton />
+               </div>
              </div>
          </header>
         <main className="flex-1 overflow-auto p-4 md:p-6 md:text-base"> {/* Added md:text-base */}
