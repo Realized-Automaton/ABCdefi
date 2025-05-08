@@ -15,7 +15,7 @@ import { useToast } from '@/hooks/use-toast'; // Import useToast
 import { useUser } from '@/context/user-context'; // Import useUser
 import { TelegramScamChatChallenge } from '@/components/telegram-scam-chat-challenge'; // Import the new challenge component
 import { RugPullCard } from '@/components/rug-pull-card'; // Import RugPullCard
-import { DeFiDegenGame } from '@/components/defi-degen-game'; // Import DeFiDegenGame
+// Removed DeFiDegenGame import
 
 
 
@@ -123,8 +123,7 @@ export default function ChallengesPage() {
             <WhackAScammerGame className="lg:col-span-1" />
             <CryptoQuiz className="lg:col-span-1" />
             <TelegramScamChatChallenge className="lg:col-span-2" questId={7} xpReward={100} />
-            {/* DeFiDegenGame added here */}
-            <DeFiDegenGame className="md:col-span-2 lg:col-span-2 h-full" questId={8} xpReward={250} />
+            {/* DeFiDegenGame removed from here */}
             <RugPullCard className="lg:col-span-2" questId={6} xpReward={150} />
 
 
