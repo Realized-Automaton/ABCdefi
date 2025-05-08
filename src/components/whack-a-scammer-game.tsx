@@ -1,3 +1,4 @@
+
 'use client';
 
 import * as React from 'react';
@@ -15,7 +16,7 @@ const GRID_SIZE = 9; // 3x3 grid
 const GAME_DURATION = 30; // seconds
 const APPEAR_INTERVAL = 1000; // ms
 const SCAMMER_CHANCE = 0.7; // 70% chance of being a scammer
-const XP_PER_POINT = 0.5; // Grant 0.5 XP per point scored
+const XP_PER_POINT = 1; // Grant 1 XP per point scored (Changed from 0.5)
 
 // Define image URLs using direct links - Updated with new links and correct categorization
 const scammerImageUrls = [
@@ -178,29 +179,32 @@ export function WhackAScammerGame({ className, challengeId }: WhackAScammerGameP
         finalScoreRef.current = finalScore;
         setMoles(Array(GRID_SIZE).fill({ state: 'hidden' })); // Hide all moles
 
-        if (!gameCompleted && finalScore > 0) {
-            const earnedXp = Math.floor(finalScore * XP_PER_POINT);
+        // Ensure finalScore is a number before proceeding
+        const scoreValue = typeof finalScore === 'number' ? finalScore : score;
+
+        if (!gameCompleted && scoreValue > 0) {
+            const earnedXp = Math.floor(scoreValue * XP_PER_POINT);
             if (earnedXp > 0) {
                 addXp(earnedXp);
                  setTimeout(() => { // Defer toast
                     toast({
                         title: "Game Over!",
-                        description: `Final Score: ${finalScore}. You earned ${earnedXp} XP!`,
+                        description: `Final Score: ${scoreValue}. You earned ${earnedXp} XP!`,
                         variant: "default"
                     });
                  }, 0);
                 setGameCompleted(true);
             } else {
                  setTimeout(() => { // Defer toast
-                     toast({ title: "Game Over!", description: `Final Score: ${finalScore}. No XP earned this time.` });
+                     toast({ title: "Game Over!", description: `Final Score: ${scoreValue}` });
                  }, 0);
             }
         } else if (!gameCompleted) {
             setTimeout(() => { // Defer toast
-                toast({ title: "Game Over!", description: `Final Score: ${finalScore}` });
+                toast({ title: "Game Over!", description: `Final Score: ${scoreValue}` });
             }, 0);
         }
-    }, [addXp, gameCompleted, toast]);
+    }, [addXp, gameCompleted, toast, score]); // Added score to dependency array
 
     const handleWhack = (index: number) => {
         if (!isPlaying || moles[index].state === 'hidden') return;
@@ -249,6 +253,14 @@ export function WhackAScammerGame({ className, challengeId }: WhackAScammerGameP
         };
     }, [isMuted]); // Re-run if isMuted changes (although toggleMute handles it now)
 
+    const handleGameButtonClick = () => {
+        if (isPlaying) {
+            stopGame(score); // Stop the game and show the current score
+        } else {
+            startGame(); // Start or restart the game
+        }
+    };
+
     return (
         <Card className={cn("flex flex-col", className)}>
             <CardHeader>
@@ -274,14 +286,14 @@ export function WhackAScammerGame({ className, challengeId }: WhackAScammerGameP
                     </div>
                 </div>
 
-                <div className="grid grid-cols-3 gap-4 w-full max-w-xs aspect-square bg-muted/20 p-2 rounded-lg border">
+                <div className="grid grid-cols-3 gap-2 w-full max-w-xs aspect-square bg-muted/20 p-2 rounded-lg border"> {/* Reduced gap */}
                     {moles.map((mole, index) => (
                         <Button
                             key={index}
                             variant="outline"
                             className={cn(
                                 // Ensure button maintains aspect ratio and doesn't change size
-                                "aspect-square h-auto w-full flex items-center justify-center transition-all duration-100 ease-out relative overflow-hidden border-2 p-0", // Use aspect-square, h-auto
+                                "aspect-square h-auto w-full flex items-center justify-center transition-all duration-100 ease-out relative overflow-hidden border-2 p-0", // Use aspect-square, h-auto, reduced padding
                                 "hover:bg-accent/20 active:scale-95",
                                 mole.state === 'hidden' ? 'bg-card hover:bg-card/90' : 'bg-background',
                                 mole.state === 'scammer' ? 'border-destructive/50 hover:bg-destructive/10' : 'border-border',
@@ -300,6 +312,7 @@ export function WhackAScammerGame({ className, challengeId }: WhackAScammerGameP
                                     layout="fill" // Use fill layout to cover the button area
                                     objectFit="contain" // Ensure image fits within bounds, doesn't stretch
                                     className="p-1" // Add some padding around the image inside the button
+                                    data-ai-hint={mole.state === 'scammer' ? 'cartoon monster' : 'cartoon character'}
                                     unoptimized
                                 />
                             )}
@@ -311,7 +324,7 @@ export function WhackAScammerGame({ className, challengeId }: WhackAScammerGameP
                 {/* Control buttons */}
                  <div className="flex items-center gap-4 mt-6">
                      <Button
-                         onClick={!isPlaying && timeLeft === GAME_DURATION ? startGame : !isPlaying && timeLeft <= 0 ? startGame : stopGame}
+                         onClick={handleGameButtonClick} // Use the new handler
                          size="lg"
                          variant={isPlaying ? "outline" : "default"}
                      >
