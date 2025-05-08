@@ -54,9 +54,22 @@ export default function Home() {
       <SidebarInset className="flex flex-col">
          {/* Updated Header Structure for Responsiveness */}
           <header className="sticky top-0 z-10 flex flex-col md:flex-row md:h-[57px] md:items-center gap-2 border-b bg-background px-4 py-2 md:py-0"> {/* Adjusted padding for mobile */}
-           {/* Row 1 (Mobile) / Part 1 (Desktop): Trigger, Buttons */}
-           <div className="flex w-full items-center justify-between md:w-auto"> {/* Adjust width for desktop */}
-             <SidebarTrigger className="md:hidden" />
+           {/* Row 1 (Mobile) / Part 1 (Desktop): Trigger, Logo, Buttons */}
+           <div className="flex w-full items-center justify-between md:w-auto">
+             <div className="flex items-center gap-2"> {/* Group Trigger and Logo */}
+               <SidebarTrigger className="md:hidden" />
+               {/* Logo for mobile view */}
+               <div className="md:hidden">
+                 <Image
+                   src="https://i.ibb.co/bMgZz4h4/a-logo-for-a-crypto-learning-and-gaming-applicatio.png"
+                   alt="ABC De-fi Logo"
+                   width={80} // Smaller width for mobile header
+                   height={20} // Adjust height proportionally
+                   className="h-auto"
+                   unoptimized
+                 />
+               </div>
+             </div>
              <div className="flex items-center gap-2 ml-auto md:ml-0"> {/* Buttons group */}
                <ConnectWalletButton />
                <div className="md:hidden"> {/* Mobile Theme Toggle */}
